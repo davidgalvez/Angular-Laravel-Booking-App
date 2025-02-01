@@ -1,1 +1,1 @@
-# Angular-Laraver-Booking-App
+# Angular-Laravel-Booking-App
