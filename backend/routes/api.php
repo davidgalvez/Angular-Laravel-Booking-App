@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/reservas', function () {
+    return response()->json([
+        ['id' => 1, 'cliente' => 'Juan', 'habitacion' => '101'],
+        ['id' => 2, 'cliente' => 'Ana', 'habitacion' => '202']
+    ]);
+});
