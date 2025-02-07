@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ApartmentController;
+use App\Http\Controllers\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +25,8 @@ Route::get('/reservas', function () {
         ['id' => 2, 'cliente' => 'Ana', 'habitacion' => '202']
     ]);
 });
+
+Route::get('/apartments', [ApartmentController::class, 'index']);
+Route::post('/apartments', [ApartmentController::class, 'store']);
+
+Route::post('/reservations', [ReservationController::class, 'store']);
