@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\ReservationController;
 
@@ -26,7 +27,10 @@ Route::get('/reservas', function () {
     ]);
 });
 
+Route::post('/landlord/login', [AuthController::class, 'login']);
+Route::post('/landlord/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
 Route::get('/apartments', [ApartmentController::class, 'index']);
-Route::post('/apartments', [ApartmentController::class, 'store']);
+Route::post('/apartments', [ApartmentController::class, 'store'])->middleware('auth:sanctum');
 
 Route::post('/reservations', [ReservationController::class, 'store']);

@@ -42,12 +42,18 @@ class ApartmentController extends Controller
      */
     public function store(Request $request) {
         $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'landlord_id' => 'required|exists:landlords,id',
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'air_conditioning' => 'boolean',
+            'heating' => 'boolean',
+            'elevator' => 'boolean',
+            'available' => 'boolean'
         ]);
 
-        $apartment = Apartment::create($request->all());
+        $apartment = new Apartment($request->all());
+        $apartment->landlord_id = auth()->id();
+        $apartment->save();
+        
         return response()->json($apartment, 201);
     }
 }
