@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'landlord' => [ // Adds specific guard for Lanlords
+        'driver' => 'session',
+        'provider' => 'landlords',
+        ],
     ],
 
     /*
@@ -63,6 +67,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'landlords' => [ // Adds the provider for landlords
+            'driver' => 'eloquent',
+            'model' => App\Models\Landlord::class,
         ],
 
         // 'users' => [

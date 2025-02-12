@@ -14,11 +14,11 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        if (!Auth::guard('web')->attempt($credentials)) {
+        if (!Auth::guard('landlord')->attempt($credentials)) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
-        $landlord = Auth::user();
+        $landlord = Auth::guard('landlord')->user();
         $token = $landlord->createToken('auth_token')->plainTextToken;
 
         return response()->json([

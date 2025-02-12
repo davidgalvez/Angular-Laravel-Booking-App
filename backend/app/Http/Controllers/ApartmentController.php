@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Apartment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ApartmentController extends Controller
 {
@@ -55,5 +56,19 @@ class ApartmentController extends Controller
         $apartment->save();
         
         return response()->json($apartment, 201);
+    }
+
+    public function getLandlordApartments()
+    {
+        $landlord = Auth::user(); //Gets the logged in landlord
+
+        if (!$landlord) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        // Get the appartments of the landlord
+        $apartments = Apartment::where('landlord_id', $landlord->id)->get();
+
+        return response()->json($apartments);
     }
 }

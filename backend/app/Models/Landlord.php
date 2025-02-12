@@ -13,6 +13,12 @@ class Landlord extends Authenticatable
 
     protected $fillable = ['name', 'email', 'password'];
 
+    protected $hidden = ['password'];
+
+    protected $casts = [
+        'password' => 'hashed',
+    ];
+
     public function apartments(): HasMany {
         return $this->hasMany(Apartment::class);
     }
