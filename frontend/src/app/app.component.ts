@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiServiceService } from './services/api.service.service';
+import { ApiService } from './services/api.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ export class AppComponent implements OnInit {
   title = 'frontend';
   reservas: any = [];
 
-  constructor(private apiService: ApiServiceService){}
+  constructor(private apiService: ApiService){}
 
   ngOnInit() {
     this.apiService.getReservas().subscribe(
