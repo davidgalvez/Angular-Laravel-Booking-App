@@ -1,3 +1,15 @@
-<div>Hola probando Proyecto Angular</div>
+<mat-toolbar>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with home icon">
+      <mat-icon>home</mat-icon>
+    </button>
+    <span>Simple Reservations App</span>
+    <span class="example-spacer"></span>
+    <button *ngIf="!authService.isLoggedIn()" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with login icon">
+      <mat-icon>login</mat-icon>
+    </button>
+    <button *ngIf="authService.isLoggedIn()" mat-icon-button class="example-icon" aria-label="Example icon-button with logout icon" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </mat-toolbar>
 
 <router-outlet></router-outlet>

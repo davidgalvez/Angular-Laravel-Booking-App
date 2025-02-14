@@ -1,25 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ApartmentService } from 'src/app/services/apartment.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { Apartment } from 'src/app/interfaces/apartment';
 
-interface Apartment {
-  id: number;
-  title: string;
-  description: string;
-  air_conditioning: boolean;
-  heating: boolean;
-  elevator: boolean;
-  available: boolean;
-}
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.sass']
+  styleUrls: ['./dashboard.component.sass'],  
+  //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent implements OnInit {
   apartments: Apartment[] = [];
+  isLoading = true;
 
   constructor(
     private apartmentService: ApartmentService,
@@ -32,8 +26,14 @@ export class DashboardComponent implements OnInit {
   }
 
   loadApartments() {
+    this.isLoading = true;
     this.apartmentService.getLandlordApartments().subscribe((data: Apartment[]) => {
       this.apartments = data;
+      this.isLoading = false;
+    },
+    (error) => {
+      console.error('Error loading the appartments:', error);
+      this.isLoading = false; 
     });
   }
 
@@ -43,10 +43,5 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  logout() {
-    this.authService.logout().subscribe(() => {
-      localStorage.removeItem('authToken');
-      this.router.navigate(['/login']);
-    });
-  }
+  
 }

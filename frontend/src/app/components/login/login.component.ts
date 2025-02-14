@@ -22,7 +22,7 @@ export class LoginComponent {
         this.router.navigate(['/dashboard']);
       },
       error: () => {
-        this.errorMessage = 'Credenciales incorrectas';
+        this.errorMessage = 'Wrong Credentials';
       }
     });
   }

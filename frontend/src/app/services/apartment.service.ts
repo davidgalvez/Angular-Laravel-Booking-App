@@ -1,16 +1,7 @@
 import { HttpClient,  HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
-interface Apartment {
-  id: number;
-  title: string;
-  description: string;
-  air_conditioning: boolean;
-  heating: boolean;
-  elevator: boolean;
-  available: boolean;
-}
+import { Apartment } from '../interfaces/apartment';
 
 @Injectable({
   providedIn: 'root'

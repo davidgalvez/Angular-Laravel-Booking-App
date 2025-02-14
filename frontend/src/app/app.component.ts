@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from './services/api.service';
+import { AuthService } from './services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,10 @@ export class AppComponent implements OnInit {
   title = 'frontend';
   reservas: any = [];
 
-  constructor(private apiService: ApiService){}
+  constructor(
+    private apiService: ApiService, 
+    private router: Router,
+    public authService: AuthService){}
 
   ngOnInit() {
     this.apiService.getReservas().subscribe(
@@ -22,6 +27,13 @@ export class AppComponent implements OnInit {
         console.error('Error al obtener reservas:', error);
       }
     );
+  }
+
+  logout() {
+    this.authService.logout().subscribe(() => {
+      localStorage.removeItem('authToken');
+      this.router.navigate(['/login']);
+    });
   }
 
 }
