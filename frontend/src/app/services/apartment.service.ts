@@ -27,4 +27,8 @@ export class ApartmentService {
   updateApartment(id: number, data: any) {
     return this.http.put(`${this.apiUrl}/${id}`, data, { headers: this.getAuthHeaders() });
   }
+
+  getAvailableApartments(): Observable<Apartment[]> {
+    return this.http.get<Apartment[]>(`${this.apiUrl}`, { headers: this.getAuthHeaders() });
+  }
 }

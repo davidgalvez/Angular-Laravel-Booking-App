@@ -36,4 +36,12 @@ export class AppComponent implements OnInit {
     });
   }
 
+  goLoginForm() {
+    this.router.navigate(['/login']);
+  }
+
+  goHome() {
+    this.router.navigate(['/home']);
+  }
+
 }

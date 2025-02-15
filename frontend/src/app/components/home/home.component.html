@@ -1,0 +1,28 @@
+<div class="filter-section">
+    <mat-checkbox [(ngModel)]="filters.air_conditioning" (change)="applyFilters()">Air Conditioning</mat-checkbox>
+    <mat-checkbox [(ngModel)]="filters.heating" (change)="applyFilters()">Heating</mat-checkbox>
+    <mat-checkbox [(ngModel)]="filters.elevator" (change)="applyFilters()">Elevator</mat-checkbox>
+  </div>
+  <div *ngIf="!isLoading" class="Appartment-list">
+    <mat-card class="example-card" appearance="outlined" *ngFor="let apartment of filteredApartments">
+      <mat-card-header>
+        <mat-card-title>{{ apartment.title }}</mat-card-title>
+        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          {{ apartment.description }}            
+        </p>
+        <ul>
+          <li>Air conditioning: {{ apartment.air_conditioning ? '✔' : '✖' }}</li>
+          <li>Heating: {{ apartment.heating ? '✔' : '✖' }}</li>
+          <li>Elevator: {{ apartment.elevator ? '✔' : '✖' }}</li>
+        </ul>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>{{ 'Book' }}</button>          
+      </mat-card-actions>
+    </mat-card>
+    
+  </div>
+  
