@@ -6,6 +6,8 @@ use App\Models\Apartment;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ReservationRequested;
 
 class ReservationController extends Controller
 {
@@ -13,9 +15,8 @@ class ReservationController extends Controller
 
         // Validates the request
         $request->validate([
-            'user_id' => 'required|exists:users,id',
             'apartment_id' => 'required|exists:apartments,id',
-            'guest_name' => 'required',
+            'guest_name' => 'required|string',
             'guest_birth_date' => 'required|date',
         ]);
 
@@ -31,10 +32,37 @@ class ReservationController extends Controller
             return response()->json(['error' => 'Apartment is not available.'], 422);
         }
 
-        // Register the reservation and updates the availability of the appartment.
-        $reservation = Reservation::create($request->all());
-        $apartment->update(['available' => false]);
+        // Register the reservation with status "pending".
+        $reservation = Reservation::create([
+            'apartment_id' => $request->apartment_id,
+            'guest_name' => $request->guest_name,
+            'guest_birth_date' => $request->guest_birth_date,
+            'status' => 'pending',
+        ]);
+        
+        //Send the notification by email to the Landlord
+        Mail::to($apartment->landlord->email)->send(new ReservationRequested($reservation));
 
         return response()->json($reservation, 201);
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:approved,rejected',
+        ]);
+
+        $reservation = Reservation::findOrFail($id);
+
+        if ($request->status == 'approved') {
+            $reservation->apartment->update(['available' => false]);
+        }
+
+        $reservation->update(['status' => $request->status]);
+
+        // Send the reservation status update notification to the user by email.
+        Mail::to($reservation->guest_email)->send(new ReservationStatusUpdated($reservation));
+
+        return response()->json($reservation);
     }
 }

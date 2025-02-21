@@ -35,3 +35,4 @@ Route::get('/apartments', [ApartmentController::class, 'index']);
 Route::post('/apartments', [ApartmentController::class, 'store'])->middleware('auth:sanctum');
 
 Route::post('/reservations', [ReservationController::class, 'store']);
+Route::patch('/reservations/{id}/status', [ReservationController::class, 'updateStatus'])->middleware(['auth:sanctum']);;

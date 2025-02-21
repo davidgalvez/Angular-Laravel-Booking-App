@@ -10,7 +10,12 @@ class Reservation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'apartment_id', 'guest_name', 'guest_birth_date'];
+    protected $fillable = [
+        'apartment_id',
+        'guest_name',
+        'guest_birth_date',
+        'status'
+    ];
 
         
     public function user(): BelongsTo {
