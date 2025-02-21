@@ -18,7 +18,8 @@ class ApartmentController extends Controller
      * @return void returns the response in json format.
      */
     public function index(Request $request) {
-        $query = Apartment::where('available', true);
+        $query = Apartment::where('available', true)
+            ->with('landlord:id,name') ;
 
         if ($request->has('air_conditioning')) {
             $query->where('air_conditioning', true);
@@ -67,7 +68,9 @@ class ApartmentController extends Controller
         }
 
         // Get the appartments of the landlord
-        $apartments = Apartment::where('landlord_id', $landlord->id)->get();
+        $apartments = Apartment::where('landlord_id', $landlord->id)
+            ->with('landlord:id,name') 
+            ->get();
 
         return response()->json($apartments);
     }
