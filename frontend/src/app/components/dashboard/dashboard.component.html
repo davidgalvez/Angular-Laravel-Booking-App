@@ -8,7 +8,7 @@
       <mat-card class="example-card" appearance="outlined" *ngFor="let apartment of apartments">
         <mat-card-header>
           <mat-card-title>{{ apartment.title }}</mat-card-title>
-          <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+          <mat-card-subtitle>{{apartment.landlord.name}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
           <p>

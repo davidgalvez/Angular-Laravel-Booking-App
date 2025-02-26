@@ -1,3 +1,4 @@
+import { Landlord }  from './landlord';
 export interface Apartment {
   id: number;
   title: string;
@@ -6,4 +7,5 @@ export interface Apartment {
   heating: boolean;
   elevator: boolean;
   available: boolean;
+  landlord: Landlord;
 }
