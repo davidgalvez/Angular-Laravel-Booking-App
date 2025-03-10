@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Book {{ data.apartment.title }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="bookingForm">
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="guest_name" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Date of Birth</mat-label>
+      <input matInput formControlName="guest_birth_date" type="date" required>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog()">Cancel</button>
+  <button mat-button color="primary" (click)="submitBooking()" [disabled]="bookingForm.invalid" >Book</button>
+</mat-dialog-actions>
+

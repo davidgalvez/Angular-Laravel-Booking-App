@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms'; 
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HomeComponent } from './components/home/home.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDialogModule } from '@angular/material/dialog';
+import { BookingRequestDialogComponent } from './components/dialog/booking-request-dialog/booking-request-dialog.component';
 
 
 @NgModule({
@@ -25,7 +28,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    HomeComponent
+    HomeComponent,
+    BookingRequestDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +37,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     BrowserAnimationsModule,
     HttpClientModule ,
     FormsModule,
+    ReactiveFormsModule, 
     HttpClientModule,
     MatCardModule, 
     MatButtonModule,
@@ -41,7 +46,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

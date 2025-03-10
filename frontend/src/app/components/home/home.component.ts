@@ -1,6 +1,8 @@
-import { Component , OnInit } from '@angular/core';
+import { Component , OnInit, inject } from '@angular/core';
 import { ApartmentService } from 'src/app/services/apartment.service';
 import { Apartment } from 'src/app/interfaces/apartment';
+import { MatDialog } from '@angular/material/dialog';
+import { BookingRequestDialogComponent } from '../dialog/booking-request-dialog/booking-request-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +14,7 @@ export class HomeComponent implements OnInit {
   apartments: Apartment[] = [];
   filteredApartments: Apartment[] = [];
   isLoading = true;
+  readonly dialog = inject(MatDialog);
   
   filters = {
     air_conditioning: false,
@@ -40,5 +43,19 @@ export class HomeComponent implements OnInit {
       (!this.filters.heating || apartment.heating) &&
       (!this.filters.elevator || apartment.elevator)
     );
+  }
+
+  openBookingDialog(apartment: Apartment) {
+    const dialogRef = this.dialog.open(BookingRequestDialogComponent, {
+      width: '400px',
+      data: { apartment: apartment }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Booking submitted:', result);
+        // TODO: Call service to send the reservation request
+      }
+    });
   }
 }
